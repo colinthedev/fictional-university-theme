@@ -9,7 +9,7 @@
           <div class="page-banner__content container container--narrow">
               <h1 class="page-banner__title"><?php the_title(); ?></h1>
               <div class="page-banner__intro">
-              <p></p>
+              <p>Single Event</p>
               </div>
           </div>
 				</div>
@@ -25,10 +25,22 @@
             <?php the_content(); ?>
           </div>
 
+          <?php 
+            $relatedPrograms = get_field( 'related_programs' );
+            
+            if ($relatedPrograms) {
+              echo '<hr class="section-break">';
+              echo '<h2 class="headline headline--medium">Related programs</h2>';
+              echo '<ul class="link-list min-list">';
+              foreach($relatedPrograms as $program) { ?>
+                <li><a href="<?= get_the_permalink( $program ); ?>"><?php echo get_the_title( $program ) ?></a></li>
+              <?php }
+              echo '</ul>';
+            }
+          ?>
+          
         </div>
 
-				<h2> <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"></a> </h2>
-				<?php the_content(); ?>
 		<?php }
 
 		get_footer();
