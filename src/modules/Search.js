@@ -42,10 +42,25 @@ class Search {
 	}
 
 	getResults() {
-		$.getJSON('http://fictional-university.local/?search=biology', function() {
-			
-		});
+		let url = 'http://fictional-university.local/wp-json/wp/v2/';
+		$.getJSON(`${url}posts?search=` + this.searchField.val(), posts => {
+			this.resultsDiv.html(`
+				<h2 class="search-overlay__section-title">General Information</h2>
+				<ul class="link-list min-list">
+					<li><a href="#">${posts.title}</a></li>
+				</ul>
+			`);
+		})
 	}
+
+	// getResults(searchField) {
+	//  let url = 'http://fictional-university.local/wp-json/wp/v2/';
+	// 	fetch(`${url}posts/?search=${searchField.value}`)
+	// 		.then(res => res.json(console.log(res)))
+	// 		.then((out) => {
+	// 			console.log('Output: ', out[0].title.rendered);
+	// 		}).catch(err => console.error(err));
+	// }
 
 	keyPressDispatcher(e) {
 		if(e.key === 's' && !$('input, textarea').is(':focus') ) {
@@ -69,3 +84,4 @@ class Search {
 }
 
 export default Search
+
